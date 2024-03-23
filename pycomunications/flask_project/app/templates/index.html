@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chat App</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsencrypt/2.3.1/jsencrypt.min.js"></script>
+</head>
+<body>
+    <h1>Chat App</h1>
+
+    <div id="register">
+        <h2>Register</h2>
+        <input type="text" id="register-username" placeholder="Username">
+        <input type="password" id="register-password" placeholder="Password">
+        <button onclick="register()">Register</button>
+    </div>
+
+    <div id="login">
+        <h2>Login</h2>
+        <input type="text" id="login-username" placeholder="Username">
+        <input type="password" id="login-password" placeholder="Password">
+        <button onclick="login()">Login</button>
+    </div>
+
+    <div id="send-message">
+        <h2>Send Message</h2>
+        <input type="text" id="message-recipient" placeholder="Recipient">
+        <textarea id="message-content" placeholder="Message"></textarea>
+        <button onclick="sendMessage()">Send Message</button>
+    </div>
+
+    <div id="messages">
+        <h2>Messages</h2>
+        <button onclick="getMessages()">Get Messages</button>
+        <ul id="message-list"></ul>
+    </div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>

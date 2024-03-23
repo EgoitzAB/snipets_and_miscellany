@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Messaging App</title>
+</head>
+<body>
+    <h1>Bienvenido a la aplicación de mensajería</h1>
+    
+    <div id="message-form" style="display: none;">
+        <h2>Enviar mensaje</h2>
+        <form>
+            <label for="recipient">Destinatario:</label><br>
+            <input type="text" id="recipient" name="recipient" required><br>
+            <label for="message">Mensaje:</label><br>
+            <textarea id="message" name="message" rows="4" cols="50" required></textarea><br><br>
+            <button type="submit">Enviar mensaje</button>
+        </form>
+    </div>
+
+    <div id="login-register-forms">
+        <div id="login-form">
+            <h2>Iniciar sesión</h2>
+            <form>
+                <label for="login-username">Nombre de usuario:</label><br>
+                <input type="text" id="login-username" name="login-username" required><br>
+                <label for="login-password">Contraseña:</label><br>
+                <input type="password" id="login-password" name="login-password" required><br><br>
+                <button type="submit">Iniciar sesión</button>
+            </form>
+        </div>
+
+        <div id="register-form">
+            <h2>Registro</h2>
+            <form>
+                <label for="username">Nombre de usuario:</label><br>
+                <input type="text" id="username" name="username" required><br>
+                <label for="password">Contraseña:</label><br>
+                <input type="password" id="password" name="password" required><br><br>
+                <button type="submit">Registrarse</button>
+            </form>
+        </div>
+
+        <div id="logout" style="display: none;">
+            <button id="logout-btn">Cerrar sesión</button>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.3.1/socket.io.js"></script>
+    <script>
+        var socket = io();
+
+        // Manejar el envío del formulario de mensaje
+        document.getElementById('message-form').addEventListener('submit', function(e) {
+            e.preventDefault(); // Evitar el envío del formulario por defecto
+            
+            var recipient = document.getElementById('recipient').value;
+            var message = document.getElementById('message').value;
+
+            // Verificar si el usuario está autenticado
+            // (Aquí puedes implementar tu lógica específica para verificar la autenticación)
+            var isAuthenticated = true; // Por ahora asumimos que el usuario está autenticado
+            
+            if (isAuthenticated) {
+                // Si el usuario está autenticado, enviar el mensaje al servidor
+                socket.emit('send_message', { recipient: recipient, message: message });
+            } else {
+                // Si el usuario no está autenticado, mostrar los formularios de inicio de sesión y registro
+                document.getElementById('login-register-forms').style.display = 'block';
+                document.getElementById('message-form').style.display = 'none';
+                document.getElementById('logout').style.display = 'none';
+            }
+        });
+
+        // Manejar el envío del formulario de registro
+        document.getElementById('register-form').addEventListener('submit', function(e) {
+            e.preventDefault(); // Evitar el envío del formulario por defecto
+            
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+
+            // Aquí puedes enviar los datos de registro al servidor
+        });
+
+        // Manejar el envío del formulario de inicio de sesión
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault(); // Evitar el envío del formulario por defecto
+            
+            var username = document.getElementById('login-username').value;
+            var password = document.getElementById('login-password').value;
+
+            // Aquí puedes enviar los datos de inicio de sesión al servidor
+        });
+
+        // Manejar el clic en el botón de cerrar sesión
+        document.getElementById('logout-btn').addEventListener('click', function() {
+            // Aquí puedes implementar la lógica para cerrar la sesión del usuario
+            // Por ejemplo, redireccionar a una página de inicio de sesión o realizar otras acciones necesarias
+            document.getElementById('login-register-forms').style.display = 'block';
+            document.getElementById('message-form').style.display = 'none';
+            document.getElementById('logout').style.display = 'none';
+        });
+    </script>
+</body>
+</html>
